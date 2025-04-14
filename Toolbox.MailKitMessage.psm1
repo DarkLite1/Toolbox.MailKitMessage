@@ -67,8 +67,8 @@
         .EXAMPLE
             # Send an email with StartTls and credential
 
-            $SmtpUserName = "smptUser"
-            $SmtpPassword = "smtpPasswrod"
+            $SmtpUserName = "smtpUser"
+            $SmtpPassword = "smtpPassword"
 
             $securePassword = ConvertTo-SecureString -String $SmtpPassword -AsPlainText -Force
             $credential = New-Object System.Management.Automation.PSCredential($SmtpUserName, $securePassword)
