@@ -2,7 +2,7 @@
 
 This PowerShell function `Send-MailKitMessageHC` allows you to send emails using the powerful [MailKit](https://github.com/jstedfast/MailKit) and [MimeKit](https://github.com/jstedfast/MimeKit) .NET libraries. It provides a flexible way to construct and send emails with features like attachments, HTML bodies, and various SMTP connection options.
 
-## Example: Send an anonymous email
+### Example: Send an anonymous email
 
 ```powershell
 $params = @{
@@ -11,25 +11,21 @@ $params = @{
     SmtpServerName      = 'SMT_SERVER@example.com'
     SmtpPort            = 25
     From                = 'bob@example.com'
-    To                  = @(
-        'james@example.com',
-        'mike@example.com'
-    )
-    Body                = '<h1>Welcome</h1><p>This is a welcome email</p>'
+    To                  = @('james@example.com', 'mike@example.com')
+    Body                = '<h1>Welcome</h1><p>Welcome email</p>'
     Subject             = 'Welcome'
 }
 
 Send-MailKitMessageHC @params
 ```
 
-## Example: Send an email with StartTls and credential
+### Example: Send an email with StartTls and credential
 
 ```powershell
 $SmtpUserName = "smptUser"
 $SmtpPassword = "smtpPasswrod"
 
 $securePassword = ConvertTo-SecureString -String $SmtpPassword -AsPlainText -Force
-
 $credential = New-Object System.Management.Automation.PSCredential($SmtpUserName, $securePassword)
 
 $params = @{
@@ -41,7 +37,7 @@ $params = @{
     Credential          = $credential
     From                = 'm@example.com'
     To                  = '007@example.com'
-    Body                = '<p>Your next missions..</p>'
+    Body                = '<p>See attachment for your next mission</p>'
     Subject             = 'For your eyes only'
     Priority            = 'High'
     Attachments         = 'c:\Secret file.txt'
@@ -52,7 +48,7 @@ Send-MailKitMessageHC @params
 
 ## Requirements
 
-#### Install MailKit and MimeKit assembly
+### Install MailKit and MimeKit assembly
 
 ```powershell
 Install-Package -Name 'MimeKit' -Source "https://www.nuget.org/api/v2" -SkipDependencies -Scope AllUsers
