@@ -6,21 +6,21 @@
         .DESCRIPTION
             This function sends an email using the MailKit and MimeKit
             assemblies. It requires the assemblies to be installed before
-            calling the function.
+            calling the function:
+
+            $params = @{
+                Source           = 'https://www.nuget.org/api/v2'
+                SkipDependencies = $true
+                Scope            = 'AllUsers'
+            }
+            Install-Package @params -Name 'MimeKit'
+            Install-Package @params -Name 'MailKit'
 
         .PARAMETER MailKitAssemblyPath
             The path to the MailKit assembly.
 
-            Example: 'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'
-
-            Install-Package -Name 'MailKit' -Source "https://www.nuget.org/api/v2" -SkipDependencies -Scope AllUsers
-
         .PARAMETER MimeKitAssemblyPath
             The path to the MimeKit assembly.
-
-            Example: 'C:\Program Files\PackageManagement\NuGet\Packages\MimeKit.4.11.0\lib\net8.0\MimeKit.dll'
-
-            Install-Package -Name 'MimeKit' -Source "https://www.nuget.org/api/v2" -SkipDependencies -Scope AllUsers
 
         .PARAMETER SmtpServerName
             The name of the SMTP server.
