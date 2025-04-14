@@ -56,6 +56,6 @@ $params = @{
     SkipDependencies = $true
     Scope            = 'AllUsers'
 }
-Install-Package @params -Name 'MimeKit'
 Install-Package @params -Name 'MailKit'
+Install-Package @params -Name 'MimeKit'
 ```
