@@ -52,6 +52,5 @@ Send-MailKitMessageHC @params
 
 ```powershell
 Install-Package -Name 'MimeKit' -Source "https://www.nuget.org/api/v2" -SkipDependencies -Scope AllUsers
-
 Install-Package -Name 'MailKit' -Source "https://www.nuget.org/api/v2" -SkipDependencies -Scope AllUsers
 ```
