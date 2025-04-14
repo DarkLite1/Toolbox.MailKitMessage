@@ -4,24 +4,15 @@ This PowerShell function `Send-MailKitMessageHC` allows you to send emails using
 
 ## Parameters
 
-- SMTP **server name** and **port**
-- SMTP connection security (**None**, **Auto**, **SslOnConnect**, **StartTlsWhenAvailable** and **StartTls**)
+- **MailKitAssemblyPath**: `'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'`
+- **MimeKitAssemblyPath**: `'C:\Program Files\PackageManagement\NuGet\Packages\MimeKit.4.11.0\lib\net8.0\MimeKit.dll'`
+- **SmtpServerName**
+- **SmtpPort**
+- **SmtpConnectionType**: **None**, **Auto**, **SslOnConnect**, **StartTlsWhenAvailable** and **StartTls**
 - **Credential** for authenticated SMTP servers
 - **To**, **From**, **Subject**, **Attachments**, **Body**, **Priority**, ..
 
-#### -MailKitAssemblyPath
-
-The path to the MailKit assembly.
-
-Example: `'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'`
-
-#### -MimeKitAssemblyPath
-
-The path to the MImeKit assembly.
-
-Example: `'C:\Program Files\PackageManagement\NuGet\Packages\MimeKit.4.11.0\lib\net8.0\MimeKit.dll'`
-
-## Requirements:
+## Requirements
 
 #### MailKit assembly
 ```powershell
