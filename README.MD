@@ -19,7 +19,7 @@ $params = @{
 Send-MailKitMessageHC @params
 ```
 
-### Example: Send an email with StartTls and credential
+### Example: Send an authenticated email
 
 ```powershell
 $SmtpUserName = 'smtpUser'
