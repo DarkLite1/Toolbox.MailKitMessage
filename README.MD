@@ -13,13 +13,13 @@ This PowerShell function `Send-MailKitMessageHC` allows you to send emails using
 
 The path to the MailKit assembly.
 
-**Example:** `'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'`
+Example: `'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'`
 
 #### -MimeKitAssemblyPath
 
 The path to the MImeKit assembly.
 
-**Example:** `'C:\Program Files\PackageManagement\NuGet\Packages\MimeKit.4.11.0\lib\net8.0\MimeKit.dll'`
+Example: `'C:\Program Files\PackageManagement\NuGet\Packages\MimeKit.4.11.0\lib\net8.0\MimeKit.dll'`
 
 ## Requirements:
 
