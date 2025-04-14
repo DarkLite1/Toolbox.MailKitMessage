@@ -7,7 +7,7 @@ This PowerShell function `Send-MailKitMessageHC` allows you to send emails using
 - SMTP **server name** and **port**
 - SMTP connection security (**None**, **Auto**, **SslOnConnect**, **StartTlsWhenAvailable** and **StartTls**)
 - **Credential** for authenticated SMTP servers
-- **To**, **From**, **Subject**, **Attachements**, **Body**, **Priority**, ..
+- **To**, **From**, **Subject**, **Attachments**, **Body**, **Priority**, ..
 
 ### -MailKitAssemblyPath
 
@@ -23,12 +23,12 @@ The path to the MImeKit assembly.
 
 ### Requirements:
 
-### Install MailKit
+#### MailKit assembly
 ```powershell
 Install-Package -Name 'MailKit' -Source "https://www.nuget.org/api/v2" -SkipDependencies -Scope AllUsers
 ```
 
-### Install MimeKit
+#### MimeKit assembly
 ```powershell
 Install-Package -Name 'MimeKit' -Source "https://www.nuget.org/api/v2" -SkipDependencies -Scope AllUsers
 ```
