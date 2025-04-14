@@ -17,9 +17,10 @@ This PowerShell function `Send-MailKitMessageHC` allows you to send emails using
 #### MailKit assembly
 ```powershell
 Install-Package -Name 'MailKit' -Source "https://www.nuget.org/api/v2" -SkipDependencies -Scope AllUsers
+
+Send-MailKitMessageHC -MailKitAssemblyPath `'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'`
 ```
 
- `'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'`
 
 #### MimeKit assembly
 ```powershell
