@@ -22,8 +22,8 @@ Send-MailKitMessageHC @params
 ### Example: Send an email with StartTls and credential
 
 ```powershell
-$SmtpUserName = "smtpUser"
-$SmtpPassword = "smtpPassword"
+$SmtpUserName = 'smtpUser'
+$SmtpPassword = 'smtpPassword'
 
 $securePassword = ConvertTo-SecureString -String $SmtpPassword -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential($SmtpUserName, $securePassword)
