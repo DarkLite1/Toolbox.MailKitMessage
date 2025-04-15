@@ -116,7 +116,7 @@
         [parameter(Mandatory)]
         [string]$SmtpServerName,
         [parameter(Mandatory)]
-        [ValidateRange(0, 65535)]
+        [ValidateSet(25, 465, 587, 2525)]
         [int]$SmtpPort,
         [parameter(Mandatory)]
         [ValidatePattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]
