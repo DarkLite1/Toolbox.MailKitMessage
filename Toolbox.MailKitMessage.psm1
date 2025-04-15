@@ -122,11 +122,11 @@
         [ValidatePattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]
         [string]$From,
         [parameter(Mandatory)]
-        [string[]]$To,
-        [parameter(Mandatory)]
         [string]$Body,
         [parameter(Mandatory)]
         [string]$Subject,
+        [string[]]$To,
+        [string[]]$Bcc,
         [int]$MaxAttachmentSize = 20MB,
         [ValidateSet(
             'None', 'Auto', 'SslOnConnect', 'StartTls', 'StartTlsWhenAvailable'
@@ -253,10 +253,24 @@
         }
 
         try {
+            #region Test To or Bcc required
+            if (-not ($To -or $Bcc)) {
+                throw "Either 'To' to 'Bcc' is required for sending emails"
+            }
+            #endregion
+
             #region Test To
             foreach ($email in $To) {
                 if ($email -notmatch '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') {
                     throw "To email address '$email' not valid."
+                }
+            }
+            #endregion
+
+            #region Test Bcc
+            foreach ($email in $Bcc) {
+                if ($email -notmatch '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') {
+                    throw "Bcc email address '$email' not valid."
                 }
             }
             #endregion
@@ -321,6 +335,10 @@
 
             foreach ($email in $To) {
                 $message.To.Add($email)
+            }
+
+            foreach ($email in $Bcc) {
+                $message.Bcc.Add($email)
             }
 
             $message.Subject = $Subject
