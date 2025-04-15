@@ -365,16 +365,26 @@
 
             $smtp = New-Object -TypeName 'MailKit.Net.Smtp.SmtpClient'
 
-            $smtp.Connect(
-                $SmtpServerName, $SmtpPort,
-                [MailKit.Security.SecureSocketOptions]::$SmtpConnectionType
-            )
+            try {
+                $smtp.Connect(
+                    $SmtpServerName, $SmtpPort,
+                    [MailKit.Security.SecureSocketOptions]::$SmtpConnectionType
+                )
+            }
+            catch {
+                throw "Failed to connect to SMTP server '$SmtpServerName' on port '$SmtpPort' with connection type '$SmtpConnectionType': $_"
+            }
 
             if ($Credential) {
-                $smtp.Authenticate(
-                    $Credential.UserName,
-                    $Credential.GetNetworkCredential().Password
-                )
+                try {
+                    $smtp.Authenticate(
+                        $Credential.UserName,
+                        $Credential.GetNetworkCredential().Password
+                    )
+                }
+                catch {
+                    throw "Failed to authenticate with user name '$($Credential.UserName)' to SMTP server '$SmtpServerName': $_"
+                }
             }
 
             Write-Verbose "Send mail to '$To' with subject '$Subject'"
