@@ -44,6 +44,13 @@
         .PARAMETER From
             The sender's email address.
 
+        .PARAMETER FromDisplayName
+            The display name to show for the sender.
+
+            Email clients may display this differently. It is most likely to be
+            shown if the sender's email address is not recognized (e.g., not in
+            the address book).
+
         .PARAMETER To
             The recipient's email address.
 
@@ -74,34 +81,35 @@
             $credential = New-Object System.Management.Automation.PSCredential($SmtpUserName, $securePassword)
 
             $params = @{
-                MailKitAssemblyPath = 'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'
-                MimeKitAssemblyPath = 'C:\Program Files\PackageManagement\NuGet\Packages\MimeKit.4.11.0\lib\net8.0\MimeKit.dll'
                 SmtpServerName      = 'SMT_SERVER@example.com'
                 SmtpPort            = 587
                 SmtpConnectionType  = 'StartTls'
                 Credential          = $credential
                 From                = 'm@example.com'
                 To                  = '007@example.com'
-                Body                = '<p>See attachment for your next mission</p>'
+                Body                = '<p>Mission details in attachment</p>'
                 Subject             = 'For your eyes only'
                 Priority            = 'High'
-                Attachments         = 'c:\Secret file.txt'
+                Attachments         = @('c:\Mission.ppt', 'c:\ID.pdf')
+                MailKitAssemblyPath = 'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'
+                MimeKitAssemblyPath = 'C:\Program Files\PackageManagement\NuGet\Packages\MimeKit.4.11.0\lib\net8.0\MimeKit.dll'
             }
 
             Send-MailKitMessageHC @params
 
         .EXAMPLE
-            # Send an anonymous email
+            # Send an email without authentication
 
             $params = @{
-                MailKitAssemblyPath = 'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'
-                MimeKitAssemblyPath = 'C:\Program Files\PackageManagement\NuGet\Packages\MimeKit.4.11.0\lib\net8.0\MimeKit.dll'
                 SmtpServerName      = 'SMT_SERVER@example.com'
                 SmtpPort            = 25
-                From                = 'bob@example.com'
-                To                  = @('james@example.com', 'mike@example.com')
-                Body                = '<h1>Welcome</h1><p>Welcome email</p>'
-                Subject             = 'Welcome'
+                From                = 'hacker@example.com'
+                FromDisplayName     = 'White hat hacker'
+                Bcc                 = @('james@example.com', 'mike@example.com')
+                Body                = '<h1>You have been hacked</h1>'
+                Subject             = 'Oops'
+                MailKitAssemblyPath = 'C:\Program Files\PackageManagement\NuGet\Packages\MailKit.4.11.0\lib\net8.0\MailKit.dll'
+                MimeKitAssemblyPath = 'C:\Program Files\PackageManagement\NuGet\Packages\MimeKit.4.11.0\lib\net8.0\MimeKit.dll'
             }
 
             Send-MailKitMessageHC @params
@@ -119,12 +127,13 @@
         [ValidateSet(25, 465, 587, 2525)]
         [int]$SmtpPort,
         [parameter(Mandatory)]
-        [ValidatePattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]
-        [string]$From,
-        [parameter(Mandatory)]
         [string]$Body,
         [parameter(Mandatory)]
         [string]$Subject,
+        [parameter(Mandatory)]
+        [ValidatePattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]
+        [string]$From,
+        [string]$FromDisplayName,
         [string[]]$To,
         [string[]]$Bcc,
         [int]$MaxAttachmentSize = 20MB,
@@ -331,7 +340,10 @@
             $message.Body = $bodyMultiPart
             #endregion
 
-            $message.From.Add($From)
+            $fromAddress = New-Object MimeKit.MailboxAddress(
+                $FromDisplayName, $From
+            )
+            $message.From.Add($fromAddress)
 
             foreach ($email in $To) {
                 $message.To.Add($email)
